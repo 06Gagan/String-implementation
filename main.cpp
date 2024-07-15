@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+#include "MyString.h"
 
 using namespace std;
 
 int main()
 {
-    string s;
+    MyString s("Gagandeep");
+    cout << s << endl;
     return 0;
 }

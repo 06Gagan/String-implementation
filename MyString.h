@@ -22,6 +22,9 @@ public:
     ~MyString();
     int size() const;
     int empty() const;
+    const char *c_str() const;
+    // overload insertion operator << for easy outpu
+    friend std::ostream &operator<<(std::ostream &os, const MyString &str);
 };
 
 #endif // MYSTRING_H

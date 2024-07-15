@@ -33,7 +33,17 @@ int MyString::size() const
     return length;
 }
 
-bool MyString::empty() const
+int MyString::empty() const
 {
     return length == 0;
+}
+
+const char *MyString::c_str() const
+{
+    return data;
+}
+std::ostream &operator<<(std::ostream &os, const MyString &str)
+{
+    os << str.c_str();
+    return os;
 }
