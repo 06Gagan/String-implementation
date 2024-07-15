@@ -23,6 +23,12 @@ public:
     int size() const;
     int empty() const;
     const char *c_str() const;
+
+    char operator[](int index);
+
+    // fing substring
+    int find(const MyString &substr) const;
+
     // overload insertion operator << for easy outpu
     friend std::ostream &operator<<(std::ostream &os, const MyString &str);
 };

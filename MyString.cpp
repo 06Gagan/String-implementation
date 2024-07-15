@@ -47,3 +47,37 @@ std::ostream &operator<<(std::ostream &os, const MyString &str)
     os << str.c_str();
     return os;
 }
+
+char MyString::operator[](int index)
+{
+    if (index >= length)
+    {
+        return '\0';
+    }
+    return data[index];
+}
+
+int MyString::find(const MyString &substr) const
+{
+    if (substr.length > length)
+    {
+        return -1;
+    }
+    for (int i = 0; i < length - substr.length; i++)
+    {
+        int j;
+        for (j = 0; j <= substr.length; j++)
+        {
+            if (data[i + j] != substr.data[j])
+            {
+                break;
+            }
+        }
+
+        if (j == substr.length)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
