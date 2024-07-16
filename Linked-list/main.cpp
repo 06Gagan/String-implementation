@@ -13,6 +13,10 @@ public:
         this->next = NULL;
         cout << "I am inside parameterized constructor with data: " << data << endl;
     }
+    ~Node()
+    {
+        cout << "destructor called" << endl;
+    }
 };
 
 void printLL(Node *head)
@@ -96,15 +100,72 @@ void insertPosition(Node *&head, Node *&tail, int data, int position)
     Node *newNode = new Node(data);
     // Create the new node
     Node *temp = head;
-    int currentPosition = 1; // Initialize current position
-                             // Traverse to one position before the intended insertion point
-    while (currentPosition < position)
+    int currentPosition = 1;
+    while (currentPosition < position - 1)
     {
         temp = temp->next;
         currentPosition++;
     }
     newNode->next = temp->next; // Link the new node with the next node
     temp->next = newNode;       // Link the current node with the new node
+}
+
+void deleteNode(Node *&head, Node *&tail, int position)
+{
+    int len = getLengthLL(head);
+    // empty list
+    if (head == NULL)
+    {
+        cout << "Cannot delete, linked list is empty" << endl;
+        return;
+    }
+    if (position < 1 || position > len)
+    {
+        cout << "Invalid position" << endl;
+        return;
+    }
+    // Deleting the only node in the list
+    if (head == tail)
+    {
+        Node *temp = head;
+        delete temp;
+        head = NULL;
+        tail = NULL;
+        return;
+    }
+    // Deleting the head node
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+        return;
+    }
+    // Deleting the tail node
+    if (position == len)
+    {
+        Node *prev = head;
+        while (prev->next != tail)
+        {
+            prev = prev->next;
+        }
+        prev->next = NULL;
+        delete tail;
+        tail = prev;
+        return;
+    }
+    // Deleting a node from the middle
+    Node *prev = NULL;
+    Node *curr = head;
+    for (int i = 1; i < position; i++)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = curr->next;
+    curr->next = NULL;
+    delete curr;
 }
 
 int main()
@@ -114,20 +175,22 @@ int main()
 
     cout << "Creating first node" << endl;
     insertAttail(head, tail, 10);
-    ;
 
     cout << "Creating second node" << endl;
     insertAtHead(head, tail, 20);
 
     cout << "Creating third node" << endl;
     insertAttail(head, tail, 30);
-    ;
 
     cout << "Creating fourth node" << endl;
     insertAtHead(head, tail, 40);
 
     cout << "Creating fifth node" << endl;
-    insertPosition(head, tail, 750, 5);
+    insertPosition(head, tail, 50, 3);
+
+    printLL(head);
+    getLengthLL(head);
+    deleteNode(head, tail, 1);
 
     printLL(head);
     getLengthLL(head);
